@@ -1,5 +1,7 @@
 const app = require('./utils/app');
-const db = require('./utils/db');
+const articleRoutes = require('./routes/articles');
+
+app.use('/', articleRoutes);
 
 app.listen(30090, () => {
     console.log('@30090');
