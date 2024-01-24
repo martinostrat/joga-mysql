@@ -17,9 +17,21 @@ const getArticleBySlug = (req, res) => {
     db.query(sql, (error, result) => {
         if (error) throw error;
 
-        res.render('article', {
-            article: result
-        });
+        let author_id = result[0].author_id;
+        let article = result[0];
+
+        let sql = `select * from author where id = ${author_id}`;
+
+        db.query(sql, (error, result) => {
+            if (error) throw error;
+
+            let author = result[0];
+            article['author_name'] = author.name;
+
+            res.render('article', {
+                article: article
+            });
+        })
     });
 }
 
